@@ -16,8 +16,8 @@
     "start": "webpack serve --mode development --open"
   },
   "devDependencies": {
-    "eslint": "8.13.0",
-    "eslint-config-htmlacademy": "5.1.2"
+    "eslint": "^8.13.0",
+    "eslint-config-htmlacademy": "^5.1.2"
   },
   "engines": {
     "node": "16"
