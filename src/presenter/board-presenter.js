@@ -1,4 +1,3 @@
-
 import {MovieCardListView, MovieCardContainerView, MovieCardView, MovieCardExtraTopRatedView, MovieCardExtraMostCommentedView} from '../view/movie-card-view.js';
 import ShowMoreButtonView from '../view/show-more-button-view.js';
 import {FilmDetailsView, FilmDetailsTopContainerView, FilmDetailsBottomContainer} from '../view/detailed-information-film-view.js';

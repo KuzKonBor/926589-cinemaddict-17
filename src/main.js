@@ -1,4 +1,3 @@
-
 import UserTitleView from './view/user-title-view.js';
 import {FiltersNavigationView, FiltersSortView} from'./view/filters-view.js';
 import {FilmsListView} from './view/movie-card-view.js';

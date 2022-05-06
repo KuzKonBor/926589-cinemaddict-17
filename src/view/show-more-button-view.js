@@ -1,4 +1,3 @@
-
 import {createElement} from '../render.js';
 
 const createShowMoreButtonViewTemplate = () => '<button class="films-list__show-more">Show more</button>';
