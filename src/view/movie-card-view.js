@@ -1,3 +1,4 @@
+
 import {createElement} from '../render.js';
 
 const createFilmsListViewTemplate = () => '<section class="films"></section>';
