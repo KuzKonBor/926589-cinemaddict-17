@@ -11,8 +11,10 @@ export default class BoardPresenter {
   filmDetailsView = new FilmDetailsView();
   movieCardContainerView = new MovieCardContainerView();
 
-  init = (boardContainer) => {
+  init = (boardContainer, filmCardModel) => {
     this.boardContainer = boardContainer;
+    this.filmCardModel = filmCardModel;
+    this.boardfilmCard = [...this.filmCardModel.getFilmCard()];
 
     render(filmsListView, siteMainElement);
     render(this.movieCardListView, filmsListView.getElement());
@@ -21,8 +23,8 @@ export default class BoardPresenter {
     render(new MovieCardExtraTopRatedView(), filmsListView.getElement());
     render(new MovieCardExtraMostCommentedView(), filmsListView.getElement());
 
-    for (let i = 0; i < 5; i++) {
-      render(new MovieCardView (), this.movieCardContainerView.getElement());
+    for (let i = 0; i < this.boardfilmCard.length; i++) {
+      render(new MovieCardView (this.boardfilmCard[i]), this.movieCardContainerView.getElement());
     }
 
     render(this.filmDetailsView, siteBodyElement);
