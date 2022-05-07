@@ -13,6 +13,6 @@ const randomData = (data) => {
 };
 
 const humanizeReleaseDate = (dueDate) => dayjs(dueDate).format('D MMMM YYYY');
-const humanizeRuntime = (dueDate) => dayjs(dueDate).format('h mm');
+const humanizeDate = (date) => dayjs(date).format('YYYY');
 
-export {getRandomInteger, humanizeReleaseDate, humanizeRuntime, randomData};
+export {getRandomInteger, humanizeReleaseDate, randomData, humanizeDate};
