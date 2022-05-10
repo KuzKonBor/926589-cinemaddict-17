@@ -12,7 +12,9 @@ const randomData = (data) => {
   return data[randomIndex];
 };
 
+const isCommentFilm = (comment) => Object.values(comment).some(Boolean);
+
 const humanizeReleaseDate = (dueDate) => dayjs(dueDate).format('D MMMM YYYY');
 const humanizeDate = (date) => dayjs(date).format('YYYY');
 
-export {getRandomInteger, humanizeReleaseDate, randomData, humanizeDate};
+export {getRandomInteger, humanizeReleaseDate, randomData, humanizeDate, isCommentFilm};

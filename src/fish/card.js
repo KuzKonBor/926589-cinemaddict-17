@@ -1,11 +1,15 @@
 import {randomData} from './util.js';
-import {POSTERS, TITLE_FILMS, DESCRIPTION_FILMS, AGE_RATING, GENRE, ALTERNATIVE_TITLE, RUNTIME, RELEASE_COUNTRY, WATCHING_DATE} from './data.js';
+import {ID, POSTERS, TITLE_FILMS, DESCRIPTION_FILMS, AGE_RATING, GENRE, ALTERNATIVE_TITLE, RUNTIME, RELEASE_COUNTRY, WATCHING_DATE} from './data.js';
 
 
 const getFilmCards = () => ({
-  id: '0',
+  id: randomData(ID),
   comments: [
-    11111100
+    1,
+    2,
+    3,
+    4,
+    5
   ],
   filmInfo: {
     title: randomData(TITLE_FILMS), //заголовок
@@ -18,7 +22,7 @@ const getFilmCards = () => ({
       'Тоже, Я!'
     ],
     actors: [ //актеры
-      'Самый крутой актёр-Я'
+      'Самый крутой актёр это кто? Никогда не догадаетесь... Тадам, это - Я'
     ],
     release: { //выпущен
       date: randomData(WATCHING_DATE),
