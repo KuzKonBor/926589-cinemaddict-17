@@ -14,7 +14,6 @@ module.exports = {
       patterns: [{ from: 'public' }],
     }),
   ],
-
   module: {
     rules: [
       {
