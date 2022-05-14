@@ -8,7 +8,8 @@ const localComment = {
 
 const EMOTION = ['smile', 'sleeping', 'puke', 'angry'];
 
-const getComment = () => ({
+
+const getArrayComments = () =>({
   id: randomData(ID),
   author: randomData(AUTHOR),
   comment: randomData(COMMENT),
@@ -16,4 +17,4 @@ const getComment = () => ({
   emotion: randomData(EMOTION)
 });
 
-export {localComment, EMOTION, getComment};
+export {localComment, EMOTION, getArrayComments};

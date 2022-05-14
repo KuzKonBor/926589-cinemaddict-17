@@ -5,16 +5,16 @@ import {ID, POSTERS, TITLE_FILMS, DESCRIPTION_FILMS, AGE_RATING, GENRE, ALTERNAT
 const getFilmCards = () => ({
   id: randomData(ID),
   comments: [
-    1,
-    2,
-    3,
-    4,
-    5
+    {id: 1},
+    {id: 2},
+    {id: 3},
+    {id: 4},
+    {id: 5}
   ],
   filmInfo: {
     title: randomData(TITLE_FILMS), //заголовок
     alternativeTitle: randomData(ALTERNATIVE_TITLE), //Альтернативный заголовок
-    totalRating: '100.4', //Общая оценка
+    totalRating: '99.4', //Общая оценка
     poster: `./images/posters/${randomData(POSTERS)}`, //плакат
     ageRating: randomData(AGE_RATING), //возрастной рейтинг
     director: 'Конено, Я!',

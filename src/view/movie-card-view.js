@@ -66,9 +66,19 @@ class MovieCardContainerView {
 
 const createMovieCardViewTemplate = (film) => {
   const {title, release, poster, ageRating, runtime, genre, description} = film.filmInfo;
+  const MAX_DESCRIPTION_LENGTH = 140;
+
   const years = release.date !== null
     ? humanizeDate(release.date)
     : '';
+
+  const createDescription = (text) => {
+    if (text.length < MAX_DESCRIPTION_LENGTH) {
+      return text;
+    }
+
+    return `${text.slice(0, MAX_DESCRIPTION_LENGTH - 2)}...`;
+  };
 
   return (
     `<article class="film-card">
@@ -81,7 +91,7 @@ const createMovieCardViewTemplate = (film) => {
     <span class="film-card__genre">${genre}</span>
   </p>
   <img src="${poster}" alt="" class="film-card__poster">
-  <p class="film-card__description">${description}</p>
+  <p class="film-card__description">${createDescription(description)}</p>
   <span class="film-card__comments">30 comments</span>
 </a>
 <div class="film-card__controls">
