@@ -137,6 +137,7 @@ class FilmDetailsTopContainerView {
   }
 }
 
+
 const getFilmDetailsComment = (comments) => {
   const {id, author, comment, date, emotion} = comments;
 
@@ -154,7 +155,6 @@ const getFilmDetailsComment = (comments) => {
         </div>
       </li>`;
 };
-
 class FilmDetailsComentsView {
   constructor (comments){
     this.comments = comments;
@@ -185,7 +185,6 @@ const createFilmDetailsBottomContainerViewTemplate = () => (
   </section>
 </div>`
 );
-
 class FilmDetailsBottomContainerView {
   getTemplate() {
     return createFilmDetailsBottomContainerViewTemplate();
