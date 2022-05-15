@@ -1,8 +1,12 @@
 import {createElement} from '../render.js';
 import {humanizeReleaseDate} from '../fish/util.js';
 
-
-const createFilmDetailsViewTemplate = () => '<section class="film-details"></section>';
+const createFilmDetailsViewTemplate = () => (
+  `<section class="film-details">
+  <form class="film-details__inner" action="" method="get">
+  </form>
+</section>`
+);
 class FilmDetailsView {
   getTemplate() {
     return createFilmDetailsViewTemplate();
@@ -20,7 +24,6 @@ class FilmDetailsView {
     this.element = null;
   }
 }
-
 const createFilmDetailsFormViewTemplate = () => (
   `<form class="film-details__inner" action="" method="get">
   </form>`
@@ -60,7 +63,6 @@ const createFilmDetailsTopContainerViewTemplate = (film) => {
     <img class="film-details__poster-img" src="${poster}" alt="">
     <p class="film-details__age">${ageRating}</p>
   </div>
-
   <div class="film-details__info">
     <div class="film-details__info-head">
       <div class="film-details__title-wrap">
@@ -72,7 +74,6 @@ const createFilmDetailsTopContainerViewTemplate = (film) => {
         <p class="film-details__total-rating">${totalRating}</p>
       </div>
     </div>
-
     <table class="film-details__table">
       <tbody><tr class="film-details__row">
         <td class="film-details__term">Director</td>
@@ -106,7 +107,6 @@ const createFilmDetailsTopContainerViewTemplate = (film) => {
           <span class="film-details__genre">${genre}</span></td>
       </tr>
     </tbody></table>
-
     <p class="film-details__film-description">
 ${description}
     </p>
@@ -227,7 +227,6 @@ class FilmDetailsUlContainerView {
 const createFilmDetailsNewCommentContainerViewTemplate = () => (
   `<div class="film-details__new-comment">
       <div class="film-details__add-emoji-label"></div>
-
       <label class="film-details__comment-label">
         <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
       </label>
@@ -273,4 +272,6 @@ class FilmDetailsNewCommentContainerView {
   }
 }
 
+
 export{FilmDetailsNewCommentContainerView, FilmDetailsUlContainerView, FilmDetailsFormView, FilmDetailsView, FilmDetailsTopContainerView, FilmDetailsBottomContainerView, FilmDetailsComentsView};
+

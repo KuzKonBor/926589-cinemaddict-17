@@ -5,6 +5,7 @@ import {render} from './render.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import FilmCardModel from './model/film-cards-model.js';
 
+
 const siteBodyElement = document.querySelector('body');
 const siteHeaderElement = document.querySelector('.header');
 const siteMainElement = document.querySelector('.main');
