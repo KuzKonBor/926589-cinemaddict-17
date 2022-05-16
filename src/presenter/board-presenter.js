@@ -12,6 +12,7 @@ export default class BoardPresenter {
   movieCardListView = new MovieCardListView();
   filmDetailsView = new FilmDetailsView();
   movieCardContainerView = new MovieCardContainerView();
+
   filmDetailsBottomContainerView = new FilmDetailsBottomContainerView();
   filmDetailsFormView = new FilmDetailsFormView();
   filmDetailsUlContainerView = new FilmDetailsUlContainerView();
