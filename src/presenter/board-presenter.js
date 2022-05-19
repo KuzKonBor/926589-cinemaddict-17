@@ -1,7 +1,18 @@
-import {MovieCardListView, MovieCardContainerView, MovieCardView, MovieCardExtraTopRatedView, MovieCardExtraMostCommentedView} from '../view/movie-card-view.js';
-import ShowMoreButtonView from '../view/show-more-button-view.js';
-import {FilmDetailsNewCommentContainerView, FilmDetailsUlContainerView, FilmDetailsFormView,FilmDetailsView, FilmDetailsTopContainerView,FilmDetailsBottomContainerView, FilmDetailsComentsView} from '../view/detailed-information-film-view.js';
+import MovieCardListView from '../view/films-list-view.js';
+import MovieCardContainerView from '../view/films-list-container-view.js';
+import MovieCardView from '../view/film-card-view.js';
+import MovieCardExtraTopRatedView from '../view/films-list-extra-top-rated-view.js';
+import MovieCardExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
+import ShowMoreButtonView from '../view/films-list-show-more-button-view.js';
+import FilmDetailsNewCommentContainerView from '../view/film-details-new-comment.view.js';
+import FilmDetailsCommentsListContainerView from '../view/film-details-comments-list-view.js';
+import FilmDetailsFormView from '../view/film-details-form-view.js';
+import FilmDetailsView from '../view/film-details-view.js';
+import FilmDetailsTopContainerView from '../view/film-details-top-container-popup-view.js';
+import FilmDetailsBottomContainerView from '../view/film-details-bottom-container-view.js';
+import FilmDetailsComentsView from '../view/film-details-comment-view.js';
 import {filmsListView, siteMainElement, siteBodyElement} from '../main.js';
+//import {getFilmComments} from '../view/film-details-comment-view.js';
 import {render} from '../render.js';
 
 //import {getFilmCards} from '../fish/card.js';
@@ -15,7 +26,7 @@ export default class BoardPresenter {
 
   filmDetailsBottomContainerView = new FilmDetailsBottomContainerView();
   filmDetailsFormView = new FilmDetailsFormView();
-  filmDetailsUlContainerView = new FilmDetailsUlContainerView();
+  filmDetailsCommentsListContainerView = new FilmDetailsCommentsListContainerView();
   filmDetailsNewCommentContainerView = new FilmDetailsNewCommentContainerView();
 
   init = (boardContainer, filmCardModel) => {
@@ -43,10 +54,10 @@ export default class BoardPresenter {
       render(new FilmDetailsTopContainerView(this.boardfilmCardPopup[0]), this.filmDetailsFormView.getElement());
     }
     render(this.filmDetailsBottomContainerView, this.filmDetailsFormView.getElement());
-    render(this.filmDetailsUlContainerView, this.filmDetailsBottomContainerView.getElement());
+    render(this.filmDetailsCommentsListContainerView, this.filmDetailsBottomContainerView.getElement());
 
     for (let i = 0; i < this.boardfilmComment.length; i++) {
-      render(new FilmDetailsComentsView(this.boardfilmComment[i]), this.filmDetailsUlContainerView.getElement());
+      render(new FilmDetailsComentsView(this.boardfilmComment[i]), this.filmDetailsCommentsListContainerView.getElement());
     }
 
     render(this.filmDetailsNewCommentContainerView, this.filmDetailsBottomContainerView.getElement());

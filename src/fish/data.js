@@ -9,7 +9,7 @@ const POSTERS = [
   'the-man-with-the-golden-arm.jpg',
 ];
 
-const TITLE_FILMS = [
+const TITLES_FILMS = [
   'Малый кот и большие проблемы!',
   'Кот бегун и скорый поезд.',
   'Тайна пропавшей рыбы.',
@@ -17,7 +17,7 @@ const TITLE_FILMS = [
   'Смертельная битва за колбасу!',
 ];
 
-const ALTERNATIVE_TITLE = [
+const ALTERNATIVE_TITLES = [
   'Кинул пацанов, к мести будь готов!',
   'Преодолевая сверх звук в тонеле',
   'Пока еще неспалили.',
@@ -34,7 +34,7 @@ const DESCRIPTION_FILMS = [
   'В узком тонеле, не спрятаться и не скрыться!',
 ];
 
-const AGE_RATING = [
+const AGE_RATINGS = [
   '0+',
   '6+',
   '12+',
@@ -42,7 +42,7 @@ const AGE_RATING = [
   '18+'
 ];
 
-const GENRE = [
+const GENRES = [
   'Драмма',
   'Ужасы',
   'Триллер',
@@ -53,7 +53,7 @@ const GENRE = [
   'Фантастика',
 ];
 
-const RUNTIME = [
+const RUNTIMES = [
   '1h 45m',
   '2h 05m',
   '1h 19m',
@@ -61,7 +61,7 @@ const RUNTIME = [
   '1h 49m'
 ];
 
-const RELEASE_COUNTRY = [
+const RELEASE_COUNTRYS = [
   'В жо... Финляндию, с ее колбасой и фильмами или это Чехия с колбасой???',
   'Такое говно могли снять только во Франции!',
   'Ну снимать провсяких пидо..сов, абсолютный чемпион это Америка!',
@@ -69,27 +69,12 @@ const RELEASE_COUNTRY = [
   'Этот шедевр сняла Россия матушка:)'
 ];
 
-const WATCHING_DATE = [
+const WATCHING_DATES = [
   '2018-05-10T16:12:32.554Z',
   '2019-04-12T16:12:32.554Z',
   '2021-09-07T16:12:32.554Z',
   '2014-06-11T16:12:32.554Z',
   '2005-02-05T16:12:32.554Z'
-];
-
-const COMMENT = [
-  'Замечательное кино, про жизнь в лесу.',
-  'Это просто эпохальное кино!!! А срущий радугой единорог, это просто вищенка на торте, сего шедевра!',
-  'Кино говно какое-то. И еще этого единорога, срущего радугой впихнули. А самое главное, это не то, что он срет, а то куда он срет! А срет он, бедной белке на голову!',
-  'Это кино про создание радуги и про счастливую белку:)',
-  'После просмотра сего, предлагаю открыть сезон охоты на единорогов!!!',
-];
-const AUTHOR = [
-  'Бухой Бобер',
-  'Лапоухая Выхухаль',
-  'Борзый Еж',
-  'Дрыщавая Чучундра',
-  'Блатной Петух',
 ];
 
 const ID = [
@@ -100,11 +85,42 @@ const ID = [
   5,
 ];
 
-const arrayComments = [
-  {id: 1},
-  {id: 2},
-  {id: 3},
-  {id: 4},
-  {id: 5}
+const commentsArray = [
+  {
+    id: 1,
+    author: 'Бухой Бобер',
+    comment: 'Замечательное кино, про жизнь в лесу.',
+    date: '01.06.1999',
+    emotion: 'smile',
+  },
+  {
+    id: 2,
+    author: 'Лапоухая Выхухаль',
+    comment: 'Это просто эпохальное кино!!! А срущий радугой единорог, это просто вищенка на торте, сего шедевра!',
+    date: '02.06.1999',
+    emotion: 'sleeping',
+  },
+  {
+    id: 3,
+    author: 'Борзый Еж',
+    comment:'Кино говно какое-то. И еще этого единорога, срущего радугой впихнули. А самое главное, это не то, что он срет, а то куда он срет! А срет он, бедной белке на голову!',
+    date: '03.06.1999',
+    emotion: 'puke',
+  },
+  {
+    id: 4,
+    author: 'Дрыщавая Чучундра',
+    comment: 'Это кино про создание радуги и про счастливую белку:)',
+    date: '04.06.1999',
+    emotion: 'angry',
+  },
+  {
+    id: 5,
+    author: 'Блатной Петух',
+    comment: 'После просмотра сего, предлагаю открыть сезон охоты на единорогов!!!',
+    date: '05.06.1999',
+    emotion: 'smile',
+  },
 ];
-export {arrayComments, ID, AUTHOR, COMMENT, POSTERS, TITLE_FILMS, DESCRIPTION_FILMS, AGE_RATING, GENRE, ALTERNATIVE_TITLE, RUNTIME, RELEASE_COUNTRY, WATCHING_DATE};
+
+export {commentsArray, ID, POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES};
