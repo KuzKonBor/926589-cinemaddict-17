@@ -12,12 +12,7 @@ import FilmDetailsTopContainerView from '../view/film-details-top-container-popu
 import FilmDetailsBottomContainerView from '../view/film-details-bottom-container-view.js';
 import FilmDetailsComentsView from '../view/film-details-comment-view.js';
 import {filmsListView, siteMainElement, siteBodyElement} from '../main.js';
-//import {getFilmComments} from '../view/film-details-comment-view.js';
 import {render} from '../render.js';
-
-//import {getFilmCards} from '../fish/card.js';
-//import {arrayComments} from '../fish/array-comment-view.js';
-
 export default class BoardPresenter {
 
   movieCardListView = new MovieCardListView();

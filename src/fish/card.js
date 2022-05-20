@@ -1,7 +1,6 @@
 import {getRandomData} from './util.js';
 import {ID, POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES} from './data.js';
 
-
 const getFilmCard = () => ({
   id: getRandomData(ID),
   comments: [1, 2, 3, 4, 5],

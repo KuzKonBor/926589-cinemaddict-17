@@ -29,7 +29,6 @@ const getFilmDetailsComment = (comments) => {
       </li>`;
 };
 
-
 export default class FilmDetailsComentsView {
   constructor (comments){
     this.comments = comments;
