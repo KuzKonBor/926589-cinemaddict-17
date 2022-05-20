@@ -13,6 +13,7 @@ import FilmDetailsBottomContainerView from '../view/film-details-bottom-containe
 import FilmDetailsComentsView from '../view/film-details-comment-view.js';
 import {filmsListView, siteMainElement, siteBodyElement} from '../main.js';
 import {render} from '../render.js';
+
 export default class BoardPresenter {
 
   movieCardListView = new MovieCardListView();
@@ -56,5 +57,6 @@ export default class BoardPresenter {
     }
 
     render(this.filmDetailsNewCommentContainerView, this.filmDetailsBottomContainerView.getElement());
+
   };
 }

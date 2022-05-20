@@ -1,3 +1,4 @@
+
 import UserTitleView from './view/user-profile-view.js';
 import FiltersSortView from './view/filters-view.js';
 import FiltersNavigationView from './view/main-navigation-view.js';
@@ -20,3 +21,4 @@ render(new FiltersSortView(), siteMainElement);
 boardPresenter.init(siteMainElement, filmCardModel);
 
 export { filmsListView, siteMainElement, siteBodyElement };
+

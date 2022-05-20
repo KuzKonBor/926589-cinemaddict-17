@@ -8,7 +8,9 @@ const createFiltersSortViewTemplate = () =>
     <li><a href="#" class="sort__button">Sort by rating</a></li>
   </ul>`
   );
+
 export default class FiltersSortView {
+
   getTemplate() {
     return createFiltersSortViewTemplate();
   }
@@ -25,3 +27,4 @@ export default class FiltersSortView {
     this.element = null;
   }
 }
+
