@@ -45,7 +45,7 @@ export default class BoardPresenter {
     render(new MovieCardExtraMostCommentedView(), this.#filmsListView.element);
 
     for (let i = 0; i < this.#boardfilmCard.length; i++) {
-      render(new MovieCardView (this.#boardfilmCard[i]), this.#movieCardContainerView.element);
+      this.#renderMovieCard(this.#boardfilmCard[i]);
     }
     /*
     render(this.#filmDetailsView, siteBodyElement);
@@ -65,5 +65,10 @@ export default class BoardPresenter {
 
     render(this.#filmDetailsNewCommentContainerView, this.#filmDetailsBottomContainerView.element);
 */
+  };
+
+  #renderMovieCard = (movieCard) => {
+    const movieCardComponent = new MovieCardView(movieCard);
+    render(movieCardComponent, this.#movieCardContainerView.element);
   };
 }
