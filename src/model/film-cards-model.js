@@ -7,11 +7,6 @@ export default class FilmCardModel {
     return this.#filmCard;
   }
 
-  /*
-  filmCardPopup = Array.from({length: 1}, getFilmCard);
-  getFilmCardPopup = () => this.filmCardPopup;
-*/
-
   #filmDetailsComment = filterComments(commentsArray, getFilmCard);
   get comments() {
     return this.#filmDetailsComment;
