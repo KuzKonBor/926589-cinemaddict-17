@@ -5,36 +5,30 @@ import MovieCardView from '../view/film-card-view.js';
 import MovieCardExtraTopRatedView from '../view/films-list-extra-top-rated-view.js';
 import MovieCardExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
 import ShowMoreButtonView from '../view/films-list-show-more-button-view.js';
-import FilmDetailsNewCommentContainerView from '../view/film-details-new-comment.view.js';
-import FilmDetailsCommentsListContainerView from '../view/film-details-comments-list-view.js';
-import FilmDetailsFormView from '../view/film-details-form-view.js';
-import FilmDetailsView from '../view/film-details-view.js';
-import FilmDetailsTopContainerView from '../view/film-details-top-container-popup-view.js';
-import FilmDetailsBottomContainerView from '../view/film-details-bottom-container-view.js';
-import FilmDetailsComentsView from '../view/film-details-comment-view.js';
+import FilmDetailsView from '../view/film-detals-and-comments-view.js';
+import {createFilmDetailsCommentTemplate} from '../view/comments-view.js';
+import FilmCardModel from '../model/film-cards-model.js';
 import {siteMainElement, siteBodyElement} from '../main.js';
 import {render} from '../render.js';
+
+const filmCardModelComments = new FilmCardModel();
+const boardFilmComment = [...filmCardModelComments.comments];
+const actualArrayComments = () => createFilmDetailsCommentTemplate(boardFilmComment);
 export default class BoardPresenter {
-  #boardContainer = null;
   #filmCardModel = null;
+  #boardContainer = null;
 
   #filmsListView = new FilmsListView();
   #movieCardListView = new MovieCardListView();
-  #filmDetailsView = new FilmDetailsView();
   #movieCardContainerView = new MovieCardContainerView();
-  #filmDetailsBottomContainerView = new FilmDetailsBottomContainerView();
-  #filmDetailsFormView = new FilmDetailsFormView();
-  #filmDetailsCommentsListContainerView = new FilmDetailsCommentsListContainerView();
-  #filmDetailsNewCommentContainerView = new FilmDetailsNewCommentContainerView();
 
   #boardFilmCard = [];
-  #boardFilmComment= [];
+
 
   init = (boardContainer, filmCardModel) => {
-    this.#boardContainer = boardContainer;
+
     this.#filmCardModel = filmCardModel;
     this.#boardFilmCard = [...this.#filmCardModel.filmCard];
-    this.#boardFilmComment = [...this.#filmCardModel.comments];
 
     render(this.#filmsListView, siteMainElement);
     render(this.#movieCardListView, this.#filmsListView.element);
@@ -50,35 +44,28 @@ export default class BoardPresenter {
 
   #renderMovieCard = (movieCard) => {
     const movieCardComponent = new MovieCardView(movieCard);
-    const movieCardPopupComponent = new FilmDetailsTopContainerView(movieCard);
+    const movieCardPopupComponent = new FilmDetailsView(movieCard);
 
     const getRenderPopup = () => {
-      render(this.#filmDetailsView, siteBodyElement);
-      render(this.#filmDetailsFormView, this.#filmDetailsView.element);
-      render(movieCardPopupComponent, this.#filmDetailsFormView.element);
-      render(this.#filmDetailsBottomContainerView, this.#filmDetailsFormView.element);
-      render( this.#filmDetailsCommentsListContainerView, this.#filmDetailsBottomContainerView.element);
-
-      this.#boardFilmComment.map((filmComment) => {
-        render(new FilmDetailsComentsView(filmComment), this.#filmDetailsCommentsListContainerView.element);
-      });
-      render(this.#filmDetailsNewCommentContainerView, this.#filmDetailsBottomContainerView.element);
-
+      render(movieCardPopupComponent, siteBodyElement);
     };
 
     const getRemovePopup = () => {
       movieCardPopupComponent.element.remove();
-      this.#filmDetailsView.element.remove();
-      this.#filmDetailsFormView.element.remove();
-      this.#filmDetailsBottomContainerView.element.remove();
-      this.#filmDetailsCommentsListContainerView.element.remove();
-      this.#filmDetailsCommentsListContainerView.element.querySelector('li').remove();
+    };
+
+    const onEscKeyDown = (evt) => {
+      if(evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        getRemovePopup();
+        document.removeElementListener('keydown', onEscKeyDown);
+      }
     };
 
     movieCardComponent.element.querySelector('.film-card__poster').addEventListener('click', (evt) => {
       evt.preventDefault();
       getRenderPopup();
-
+      document.addEventListener('keydown', onEscKeyDown);
     });
 
     movieCardPopupComponent.element.querySelector('.film-details__close-btn').addEventListener('click', (evt) => {
@@ -89,3 +76,5 @@ export default class BoardPresenter {
     render(movieCardComponent, this.#movieCardContainerView.element);
   };
 }
+
+export {actualArrayComments};

@@ -1,6 +1,6 @@
 import {getFilmCard} from '../fish/card.js';
 import {commentsArray} from '../fish/data.js';
-import {filterComments} from '../view/film-details-comment-view.js';
+import {filterComments} from '../view/film-detals-and-comments-view.js';
 export default class FilmCardModel {
   #filmCard = Array.from({length: 5}, getFilmCard);
   get filmCard() {
@@ -12,3 +12,4 @@ export default class FilmCardModel {
     return this.#filmDetailsComment;
   }
 }
+
