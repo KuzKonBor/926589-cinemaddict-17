@@ -24,7 +24,6 @@ export default class BoardPresenter {
 
   #boardFilmCard = [];
 
-
   init = (boardContainer, filmCardModel) => {
 
     this.#filmCardModel = filmCardModel;
@@ -58,7 +57,7 @@ export default class BoardPresenter {
       if(evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
         getRemovePopup();
-        document.removeElementListener('keydown', onEscKeyDown);
+        document.removeEventListener('keydown', onEscKeyDown);
       }
     };
 
@@ -71,6 +70,7 @@ export default class BoardPresenter {
     movieCardPopupComponent.element.querySelector('.film-details__close-btn').addEventListener('click', (evt) => {
       evt.preventDefault();
       getRemovePopup();
+      document.removeEventListener('keydown', onEscKeyDown);
     });
 
     render(movieCardComponent, this.#movieCardContainerView.element);

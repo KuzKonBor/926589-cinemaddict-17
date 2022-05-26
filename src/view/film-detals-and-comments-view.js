@@ -61,7 +61,6 @@ const createFilmDetailsViewTemplate = (film, createComment = {}) => {
     description,
   } = filmInfo;
 
-
   const {
     watchlist,
     alreadyWatched,
