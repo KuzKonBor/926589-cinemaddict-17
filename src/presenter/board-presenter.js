@@ -11,9 +11,11 @@ import FilmCardModel from '../model/film-cards-model.js';
 import {siteMainElement, siteBodyElement} from '../main.js';
 import {render} from '../render.js';
 
+
 const filmCardModelComments = new FilmCardModel();
 const boardFilmComment = [...filmCardModelComments.comments];
 const actualArrayComments = () => createFilmDetailsCommentTemplate(boardFilmComment);
+
 export default class BoardPresenter {
   #filmCardModel = null;
   #boardContainer = null;
@@ -49,6 +51,7 @@ export default class BoardPresenter {
       render(movieCardPopupComponent, siteBodyElement);
     };
 
+
     const getRemovePopup = () => {
       movieCardPopupComponent.element.remove();
     };
@@ -74,6 +77,7 @@ export default class BoardPresenter {
     });
 
     render(movieCardComponent, this.#movieCardContainerView.element);
+
   };
 }
 
