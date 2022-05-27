@@ -1,13 +1,18 @@
-import {getFilmCards} from '../fish/card.js';
-import {getArrayComments} from '../fish/comment.js';
+import {getFilmCard} from '../fish/card.js';
+import {commentsArray} from '../fish/data.js';
+import {filterComments} from '../view/film-detals-and-comments-view.js';
+
+const InitialNumberOfMovieCards = 5;
+
 export default class FilmCardModel {
-  filmCard = Array.from({length: 5}, getFilmCards);
-  getFilmCard = () => this.filmCard;
+  #filmCard = Array.from({length: InitialNumberOfMovieCards}, getFilmCard);
+  get filmCard() {
+    return this.#filmCard;
+  }
 
-  filmCardPopup = Array.from({length: 1}, getFilmCards);
-  getFilmCardPopup = () => this.filmCardPopup;
-
-  filmDetailsComment = Array.from({length: 5}, getArrayComments);
-  getComments = () => this.filmDetailsComment;
+  #filmDetailsComment = filterComments(commentsArray, getFilmCard);
+  get comments() {
+    return this.#filmDetailsComment;
+  }
 }
 
