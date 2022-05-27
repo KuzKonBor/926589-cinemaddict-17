@@ -2,7 +2,7 @@ import {getFilmCard} from '../fish/card.js';
 import {commentsArray} from '../fish/data.js';
 import {filterComments} from '../view/film-detals-and-comments-view.js';
 
-const InitialNumberOfMovieCards = 5;
+const InitialNumberOfMovieCards = 22;
 
 export default class FilmCardModel {
   #filmCard = Array.from({length: InitialNumberOfMovieCards}, getFilmCard);
