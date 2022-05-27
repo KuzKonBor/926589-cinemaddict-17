@@ -23,7 +23,7 @@ const getFilmCard = () => ({
     },
     runtime: getRandomData(RUNTIMES), //продолжительность фильма
     genre: [ //жанр
-      getRandomData(GENRES)
+      getRandomData(GENRES),getRandomData(GENRES)
     ],
     description: getRandomData(DESCRIPTION_FILMS), //описание
   },
