@@ -17,6 +17,7 @@ const boardFilmComment = [...filmCardModelComments.comments];
 const actualArrayComments = () => createFilmDetailsCommentTemplate(boardFilmComment);
 
 const filmCardCountPerStep = 5;
+
 export default class BoardPresenter {
   #filmCardModel = null;
   #boardContainer = null;
@@ -86,6 +87,7 @@ export default class BoardPresenter {
     });
 
     render(movieCardComponent, this.#movieCardContainerView.element);
+
   };
 
   #renderBoard = () => {
