@@ -9,14 +9,13 @@ import FilmCardModel from './model/film-cards-model.js';
 const siteBodyElement = document.querySelector('body');
 const siteHeaderElement = document.querySelector('.header');
 const siteMainElement = document.querySelector('.main');
-const boardPresenter = new BoardPresenter();
 const filmCardModel = new FilmCardModel();
+const boardPresenter = new BoardPresenter(siteMainElement, filmCardModel);
 
 render(new UserTitleView(), siteHeaderElement);
 render(new FiltersNavigationView(), siteMainElement);
 render(new FiltersSortView(), siteMainElement);
 
-boardPresenter.init(siteMainElement, filmCardModel);
+boardPresenter.init();
 
-export {siteMainElement, siteBodyElement};
-
+export {siteBodyElement};
