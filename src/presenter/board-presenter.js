@@ -1,11 +1,11 @@
-import MovieCardListView from '../view/films-list-view.js';
-import FilmsListView from '../view/films-view.js';
-import MovieCardContainerView from '../view/films-list-container-view.js';
-import MovieCardView from '../view/film-card-view.js';
-import MovieCardExtraTopRatedView from '../view/films-list-extra-top-rated-view.js';
-import MovieCardExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
-import ShowMoreButtonView from '../view/films-list-show-more-button-view.js';
-import FilmDetailsView from '../view/film-detals-and-comments-view.js';
+import FilmListView from '../view/films-list-view.js';
+import FilmsView from '../view/films-view.js';
+import FilmListContainerView from '../view/films-list-container-view.js';
+import FilmCardView from '../view/film-card-view.js';
+import FilmListExtraTopRatedView from '../view/films-list-extra-top-rated-view.js';
+import FilmListExtraMostCommentedView from '../view/films-list-extra-most-commented-view.js';
+import FilmListShowMoreButtonView from '../view/films-list-show-more-button-view.js';
+import FilmDetailsAndCommentsView from '../view/film-detals-and-comments-view.js';
 import {createFilmDetailsCommentTemplate} from '../view/comments-view.js';
 import FilmCardModel from '../model/film-cards-model.js';
 import NoFilmCardView from '../view/no-film-card-view.js';
@@ -22,10 +22,10 @@ export default class BoardPresenter {
   #filmCardModel = null;
   #boardContainer = null;
 
-  #filmsListView = new FilmsListView();
-  #movieCardListView = new MovieCardListView();
-  #movieCardContainerView = new MovieCardContainerView();
-  #showMoreButtonView = new ShowMoreButtonView();
+  #filmsView = new FilmsView();
+  #filmListView = new FilmListView();
+  #filmListContainerView = new FilmListContainerView();
+  #filmListShowMoreButtonView = new FilmListShowMoreButtonView();
   #boardFilmCard = [];
   #renderFilmCard = filmCardCountPerStep;
 
@@ -49,14 +49,14 @@ export default class BoardPresenter {
     this.#renderFilmCard += filmCardCountPerStep;
 
     if (this.#renderFilmCard >= this.#boardFilmCard.length) {
-      this.#showMoreButtonView.element.remove();
-      this.#showMoreButtonView.removeElement();
+      this.#filmListShowMoreButtonView.element.remove();
+      this.#filmListShowMoreButtonView.removeElement();
     }
   };
 
   #renderMovieCard = (movieCard) => {
-    const movieCardComponent = new MovieCardView(movieCard);
-    const movieCardPopupComponent = new FilmDetailsView(movieCard);
+    const movieCardComponent = new FilmCardView(movieCard);
+    const movieCardPopupComponent = new FilmDetailsAndCommentsView(movieCard);
 
     const getRenderPopup = () => {
       render(movieCardPopupComponent, siteBodyElement);
@@ -86,28 +86,28 @@ export default class BoardPresenter {
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    render(movieCardComponent, this.#movieCardContainerView.element);
+    render(movieCardComponent, this.#filmListContainerView.element);
 
   };
 
   #renderBoard = () => {
-    render(this.#filmsListView, this.#boardContainer);
+    render(this.#filmsView, this.#boardContainer);
 
     if (this.#boardFilmCard.every((filmCard) => filmCard.isArchive)) {
-      render(new NoFilmCardView(), this.#filmsListView.element);
+      render(new NoFilmCardView(), this.#filmsView.element);
     } else {
-      render(this.#movieCardListView, this.#filmsListView.element);
-      render(this.#movieCardContainerView, this.#movieCardListView.element);
-      render(new MovieCardExtraTopRatedView(), this.#filmsListView.element);
-      render(new MovieCardExtraMostCommentedView(), this.#filmsListView.element);
+      render(this.#filmListView, this.#filmsView.element);
+      render(this.#filmListContainerView, this.#filmListView.element);
+      render(new FilmListExtraTopRatedView(), this.#filmsView.element);
+      render(new FilmListExtraMostCommentedView(), this.#filmsView.element);
 
       for (let i = 0; i < Math.min(this.#boardFilmCard.length, filmCardCountPerStep); i++) {
         this.#renderMovieCard(this.#boardFilmCard[i]);
       }
       if (this.#boardFilmCard.length > filmCardCountPerStep) {
-        render(this.#showMoreButtonView, this.#movieCardListView.element);
+        render(this.#filmListShowMoreButtonView, this.#filmListView.element);
 
-        this.#showMoreButtonView.element.addEventListener('click', this.#onLoadMoreButtonClick);
+        this.#filmListShowMoreButtonView.element.addEventListener('click', this.#onLoadMoreButtonClick);
       }
     }
   };

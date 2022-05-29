@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeReleaseDate} from '../fish/util.js';
 import {EMOTIONS} from '../fish/comment.js';
 import {actualArrayComments} from '../presenter/board-presenter.js';
@@ -166,11 +166,11 @@ ${createFilmDetalsControlsButton('favorite', 'Add to favorites', favorite)}
 </section>`);
 };
 
-export default class FilmDetailsView {
-  #element = null;
+export default class FilmDetailsAndCommentsView extends AbstractView {
   #film = null;
 
   constructor (film){
+    super();
     this.#film = film;
 
     this.emotion = null;
@@ -182,18 +182,6 @@ export default class FilmDetailsView {
       emotion: this.emotion,
       comment: this.comment,
     });
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
 
