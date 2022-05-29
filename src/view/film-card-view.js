@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeDate} from '../fish/utils-film-card.js';
+import {humanizeDate} from '../fish/film-card.js';
 
 const createMovieCardViewTemplate = (film) => {
   const {title, release, poster, ageRating, runtime, genre, description} = film.filmInfo;

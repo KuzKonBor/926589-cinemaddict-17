@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeReleaseDate} from '../fish/utils-film-card.js';
+import {humanizeReleaseDate} from '../fish/film-card.js';
 import {EMOTIONS} from '../fish/comment.js';
 import {actualArrayComments} from '../presenter/board-presenter.js';
 
