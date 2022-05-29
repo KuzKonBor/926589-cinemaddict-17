@@ -183,6 +183,16 @@ export default class FilmDetailsAndCommentsView extends AbstractView {
       comment: this.comment,
     });
   }
+
+  onSetCrossClick = (callback) => {
+    this._callback.click = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#onCrossClick);
+  };
+
+  #onCrossClick = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
+  };
 }
 
 export {filterComments};

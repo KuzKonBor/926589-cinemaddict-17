@@ -10,7 +10,7 @@ import {createFilmDetailsCommentTemplate} from '../view/comments-view.js';
 import FilmCardModel from '../model/film-cards-model.js';
 import NoFilmCardView from '../view/no-film-card-view.js';
 import {siteBodyElement} from '../main.js';
-import {render} from '../render.js';
+import {render} from '../framework/render.js';
 
 const filmCardModelComments = new FilmCardModel();
 const boardFilmComment = [...filmCardModelComments.comments];
@@ -39,9 +39,7 @@ export default class BoardPresenter {
     this.#renderBoard();
   };
 
-  #onLoadMoreButtonClick = (evt) => {
-    evt.preventDefault();
-
+  #onLoadMoreButtonClick = () => {
     this.#boardFilmCard
       .slice(this.#renderFilmCard, this.#renderFilmCard + filmCardCountPerStep)
       .forEach((filmCard) => this.#renderMovieCard(filmCard));
@@ -74,14 +72,12 @@ export default class BoardPresenter {
       }
     };
 
-    movieCardComponent.element.querySelector('.film-card__poster').addEventListener('click', (evt) => {
-      evt.preventDefault();
+    movieCardComponent.onSetPosterClick(() => {
       getRenderPopup();
       document.addEventListener('keydown', onEscKeyDown);
     });
 
-    movieCardPopupComponent.element.querySelector('.film-details__close-btn').addEventListener('click', (evt) => {
-      evt.preventDefault();
+    movieCardPopupComponent.onSetCrossClick(() => {
       getRemovePopup();
       document.removeEventListener('keydown', onEscKeyDown);
     });
@@ -107,7 +103,7 @@ export default class BoardPresenter {
       if (this.#boardFilmCard.length > filmCardCountPerStep) {
         render(this.#filmListShowMoreButtonView, this.#filmListView.element);
 
-        this.#filmListShowMoreButtonView.element.addEventListener('click', this.#onLoadMoreButtonClick);
+        this.#filmListShowMoreButtonView.onSetClick(this.#onLoadMoreButtonClick);
       }
     }
   };

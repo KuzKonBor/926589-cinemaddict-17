@@ -7,4 +7,15 @@ export default class FilmListShowMoreButtonView extends AbstractView {
   get template() {
     return createShowMoreButtonViewTemplate();
   }
+
+  onSetClick = (callback) => {
+    this._callback.click = callback;
+    this.element.addEventListener('click', this.#onClick);
+  };
+
+  #onClick = (evt) => {
+    evt.preventDefault();
+
+    this._callback.click();
+  };
 }

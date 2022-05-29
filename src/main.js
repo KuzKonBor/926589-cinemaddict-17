@@ -2,7 +2,7 @@
 import UserProfileView from './view/user-profile-view.js';
 import FiltersSortView from './view/filters-sort-view.js';
 import FiltersNavigationView from './view/filters-navigation-view.js';
-import {render} from './render.js';
+import {render} from './framework/render.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import FilmCardModel from './model/film-cards-model.js';
 
