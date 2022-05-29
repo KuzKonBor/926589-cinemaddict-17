@@ -10,7 +10,7 @@ import {createFilmDetailsCommentTemplate} from '../view/comments-view.js';
 import FilmCardModel from '../model/film-cards-model.js';
 import NoFilmCardView from '../view/no-film-card-view.js';
 import {siteBodyElement} from '../main.js';
-import {render} from '../framework/render.js';
+import {render, remove} from '../framework/render.js';
 
 const filmCardModelComments = new FilmCardModel();
 const boardFilmComment = [...filmCardModelComments.comments];
@@ -47,8 +47,7 @@ export default class BoardPresenter {
     this.#renderFilmCard += filmCardCountPerStep;
 
     if (this.#renderFilmCard >= this.#boardFilmCard.length) {
-      this.#filmListShowMoreButtonView.element.remove();
-      this.#filmListShowMoreButtonView.removeElement();
+      remove(this.#filmListShowMoreButtonView);
     }
   };
 
