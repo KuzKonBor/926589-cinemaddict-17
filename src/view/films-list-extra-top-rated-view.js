@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const createMovieCardExtraTopRatedViewTemplate = () =>(
   `<section class="films-list films-list--extra">
@@ -47,22 +47,9 @@ const createMovieCardExtraTopRatedViewTemplate = () =>(
     </div>
   </section>`
 );
-export default class MovieCardExtraTopRatedView {
-  #element = null;
+export default class FilmListExtraTopRatedView extends AbstractView {
 
   get template() {
     return createMovieCardExtraTopRatedViewTemplate();
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

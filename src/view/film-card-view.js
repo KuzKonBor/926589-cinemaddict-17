@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeDate} from '../fish/util.js';
 
 const createMovieCardViewTemplate = (film) => {
@@ -39,11 +39,11 @@ const createMovieCardViewTemplate = (film) => {
 </div>
 </article>`);
 };
-export default class MovieCardView {
-  #element = null;
+export default class FilmCardView extends AbstractView {
   #film = null;
 
   constructor (film) {
+    super();
     this.#film = film;
   }
 
@@ -51,15 +51,14 @@ export default class MovieCardView {
     return createMovieCardViewTemplate(this.#film);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
+  onSetPosterClick = (callback) => {
+    this._callback.click = callback;
+    this.element.querySelector('.film-card__poster').addEventListener('click', this.#onPosterClick);
+  };
 
-    return this.#element;
-  }
+  #onPosterClick = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
+  };
 
-  removeElement() {
-    this.#element = null;
-  }
 }
