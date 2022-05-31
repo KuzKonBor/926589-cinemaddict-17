@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeReleaseDate} from '../fish/film-card.js';
-import {EMOTIONS} from '../fish/comment.js';
+import {humanizeReleaseDate} from '../utils/film-card.js';
+import {EMOTIONS} from '../fish/const.js';
 import {actualArrayComments} from '../presenter/board-presenter.js';
 
 const creatingGenreItemTitle = (genre) => genre.length > 1 ? 'Genres' : 'Genre';
@@ -133,7 +133,7 @@ ${description}
   </div>
 </div>
 <section class="film-details__controls">
-${createFilmDetalsControlsButton('watchlist', 'Add to watchlist', watchlist)}
+${createFilmDetalsControlsButton('watchlist', 'Add to watchlist', watchlist )}
 ${createFilmDetalsControlsButton('watched', 'Already watched', alreadyWatched)}
 ${createFilmDetalsControlsButton('favorite', 'Add to favorites', favorite)}
       </section>

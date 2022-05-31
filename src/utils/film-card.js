@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {getRandomInteger} from './utils/common.js';
+import {getRandomInteger} from '../utils/common.js';
 
 const getRandomData = (data) => {
   const randomIndex = getRandomInteger(0, data.length - 1);

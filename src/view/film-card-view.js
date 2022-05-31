@@ -1,21 +1,44 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeDate} from '../fish/film-card.js';
+import {humanizeDate} from '../utils/film-card.js';
 
 const createMovieCardViewTemplate = (film) => {
-  const {title, release, poster, ageRating, runtime, genre, description} = film.filmInfo;
+  const {
+    filmInfo,
+    userDetails,
+    comments,
+  } = film;
+
+  const {
+    title,
+    release,
+    poster,
+    ageRating,
+    runtime,
+    genre,
+    description
+  } = filmInfo;
+
+  const {
+    watchlist,
+    alreadyWatched,
+    favorite,
+  } = userDetails;
+
   const MAX_DESCRIPTION_LENGTH = 140;
 
-  const years = release.date !== null
-    ? humanizeDate(release.date)
-    : '';
+  const years = release.date !== null ? humanizeDate(release.date) : '';
 
   const createDescription = (text) => {
     if (text.length < MAX_DESCRIPTION_LENGTH) {
       return text;
     }
-
     return `${text.slice(0, MAX_DESCRIPTION_LENGTH - 2)}...`;
   };
+
+  const createFilmCardControlsButton = (name, textButton, isActive) =>
+    `<button
+  class="film-card__controls-item film-card__controls-item--${name}
+  ${isActive === true ? 'film-card__controls-item--active' : ''}" type="button">${textButton}</button>`;
 
   return (
     `<article class="film-card">
@@ -29,13 +52,13 @@ const createMovieCardViewTemplate = (film) => {
   </p>
   <img src="${poster}" alt="" class="film-card__poster">
   <p class="film-card__description">${createDescription(description)}</p>
-  <span class="film-card__comments">30 comments</span>
+  <span class="film-card__comments">${comments.length} comments</span>
 
 </a>
 <div class="film-card__controls">
-  <button class="film-card__controls-item film-card__controls-item--add-to-watchlist film-card__controls-item--active" type="button">Add to watchlist</button>
-  <button class="film-card__controls-item film-card__controls-item--mark-as-watched film-card__controls-item--active" type="button">Mark as watched</button>
-  <button class="film-card__controls-item film-card__controls-item--favorite film-card__controls-item--active" type="button">Mark as favorite</button>
+${createFilmCardControlsButton('add-to-watchlist', 'Add to watchlist', watchlist)}
+${createFilmCardControlsButton('mark-as-watched', 'Mark as watched', alreadyWatched)}
+${createFilmCardControlsButton('favorite', 'Mark as favorite', favorite)}
 </div>
 </article>`);
 };
