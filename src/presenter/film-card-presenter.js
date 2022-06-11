@@ -1,37 +1,64 @@
-import {render, remove} from '../framework/render.js';
+import {render, replace, remove} from '../framework/render.js';
 import FilmCardView from '../view/film-card-view.js';
 import FilmDetailsAndCommentsView from '../view/film-detals-and-comments-view.js';
 import {siteBodyElement} from '../main.js';
 
+const Mode = {
+  DEFAULT: 'DEFAULT',
+  DETALS: 'DETALS',
+};
 export default class FilmCardPresenter {
-
   #filmCardListContainer = null;
   #movieCardComponent = null;
   #movieCardPopupComponent = null;
+  #changeData = null;
+  #changeMode = null;
 
   #movieCard = null;
+  #mode = Mode.DEFAULT;
 
-  constructor (filmCardListContainer) {
+  constructor (filmCardListContainer, changeData, changeMode) {
     this.#filmCardListContainer = filmCardListContainer;
+    this.#changeData = changeData;
+    this.#changeMode = changeMode;
   }
 
   init = (movieCard) => {
     this.#movieCard = movieCard;
 
-    this.#movieCardComponent = new FilmCardView(movieCard);
-    this.#movieCardPopupComponent = new FilmDetailsAndCommentsView(movieCard);
+    const prevMovieCardComponent = this.#movieCardComponent;
+    const prevMovieCardPopupComponent = this.#movieCardPopupComponent;
 
-    render(this.#movieCardComponent, this.#filmCardListContainer);
+    this.#movieCardComponent = new FilmCardView(this.#movieCard);
+    this.#movieCardPopupComponent = new FilmDetailsAndCommentsView(this.#movieCard);
 
-    this.#movieCardComponent.onSetPosterClick(() => {
-      this.#getRenderPopup();
-      document.addEventListener('keydown', this.#onEscKeyDown);
-    });
+    this.#movieCardComponent.onSetPosterClick(this.#onPosterClick);
+    this.#movieCardComponent.onSetAddToWatchlistClick(this.#onWatchlistClick);
+    this.#movieCardComponent.onSetMarkAsWatchedClick(this.#onWatchedClick);
+    this.#movieCardComponent.onSetFavoriteClickHandler(this.#onFavoriteClick);
+    this.#movieCardPopupComponent.onSetCrossClick(this.#onCrossClick);
 
-    this.#movieCardPopupComponent.onSetCrossClick(() => {
-      this.#getRemovePopup();
-      document.removeEventListener('keydown', this.#onEscKeyDown);
-    });
+    if (prevMovieCardComponent === null) {
+      render(this.#movieCardComponent, this.#filmCardListContainer);
+      return;
+    }
+
+    if (this.#mode === Mode.DEFAULT) {
+      replace(this.#movieCardComponent, prevMovieCardComponent);
+    }
+
+
+    if (prevMovieCardPopupComponent === null) {
+      render(this.#movieCardPopupComponent, siteBodyElement);
+      return;
+    }
+
+    if (this.#mode === Mode.DETALS) {
+      replace(this.#movieCardPopupComponent, prevMovieCardPopupComponent);
+    }
+
+    remove(prevMovieCardComponent);
+    remove(prevMovieCardPopupComponent);
   };
 
   destroy = () => {
@@ -39,12 +66,23 @@ export default class FilmCardPresenter {
     remove(this.#movieCardPopupComponent);
   };
 
+  resetView = () => {
+    if (this.#mode !== Mode.DEFAULT) {
+      this.#getRemovePopup();
+    }
+  };
+
   #getRenderPopup = () => {
     render(this.#movieCardPopupComponent, siteBodyElement);
+    this.#changeMode();
+    this.#mode = Mode.DETALS;
+    document.addEventListener('keydown', this.#onEscKeyDown);
   };
 
   #getRemovePopup = () => {
     this.#movieCardPopupComponent.element.remove();
+    this.#mode = Mode.DEFAULT;
+    document.removeEventListener('keydown', this.#onEscKeyDown);
   };
 
   #onEscKeyDown = (evt) => {
@@ -54,70 +92,25 @@ export default class FilmCardPresenter {
       document.removeEventListener('keydown', this.#onEscKeyDown);
     }
   };
-}
 
-
-/*
-init = (movieCard) => {
-  this.#movieCard = movieCard;
-
-  const prevMovieCardComponent = this.#movieCardComponent;
-  const prevMovieCardPopupComponent = this.#movieCardPopupComponent;
-
-  this.#movieCardComponent = new FilmCardView(movieCard);
-  this.#movieCardPopupComponent = new FilmDetailsAndCommentsView(movieCard);
-
-  if (prevMovieCardComponent === null) {
-    render(this.#movieCardComponent, this.#filmCardListContainer);
-    return;
-  }
-
-  if (prevMovieCardPopupComponent === null) {
-    render(this.#movieCardPopupComponent, this.#filmCardListContainer);
-    return;
-  }
-
-  if (this.#filmCardListContainer.contains(prevMovieCardComponent.element)) {
-    replace(this.#movieCardComponent, prevMovieCardComponent);
-  }
-
-  if (this.#filmCardListContainer.contains(prevMovieCardPopupComponent.element)) {
-    replace(this.#movieCardPopupComponent, prevMovieCardPopupComponent);
-  }
-
-  this.#movieCardComponent.onSetPosterClick(() => {
+  #onPosterClick = (movieCard) => {
     this.#getRenderPopup();
-    document.addEventListener('keydown', this.#onEscKeyDown);
-  });
+    this.#changeData(movieCard);
+  };
 
-  this.#movieCardPopupComponent.onSetCrossClick(() => {
+  #onCrossClick = () => {
     this.#getRemovePopup();
-    document.removeEventListener('keydown', this.#onEscKeyDown);
-  });
+  };
 
-  remove(prevMovieCardComponent);
-  remove(prevMovieCardPopupComponent);
-};
+  #onFavoriteClick = () => {
+    this.#changeData({...this.#movieCard, favorite: !this.#movieCard.favorite});
+  };
 
-destroy = () => {
-  remove(this.#movieCardComponent);
-  remove(this.#movieCardPopupComponent);
-};
+  #onWatchlistClick = () => {
+    this.#changeData({...this.#movieCard, watchlist: !this.#movieCard.watchlist});
+  };
 
-#getRenderPopup = () => {
-  render(this.#movieCardPopupComponent, siteBodyElement);
-};
-
-#getRemovePopup = () => {
-  this.#movieCardPopupComponent.element.remove();
-};
-
-#onEscKeyDown = (evt) => {
-  if(evt.key === 'Escape' || evt.key === 'Esc') {
-    evt.preventDefault();
-    this.#getRemovePopup();
-    document.removeEventListener('keydown', this.#onEscKeyDown);
-  }
-};
+  #onWatchedClick = () => {
+    this.#changeData({...this.#movieCard, alreadyWatched: !this.#movieCard.alreadyWatched});
+  };
 }
-*/

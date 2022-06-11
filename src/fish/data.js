@@ -77,14 +77,6 @@ const WATCHING_DATES = [
   '2005-02-05T16:12:32.554Z'
 ];
 
-const ID = [
-  1,
-  2,
-  3,
-  4,
-  5,
-];
-
 const commentsArray = [
   {
     id: 1,
@@ -123,4 +115,4 @@ const commentsArray = [
   },
 ];
 
-export {commentsArray, ID, POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES};
+export {commentsArray, POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES};

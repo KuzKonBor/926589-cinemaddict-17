@@ -1,8 +1,8 @@
 import {getRandomData} from '../utils/film-card.js';
-import {ID, POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES} from './data.js';
-
+import {POSTERS, TITLES_FILMS, DESCRIPTION_FILMS, AGE_RATINGS, GENRES, ALTERNATIVE_TITLES, RUNTIMES, RELEASE_COUNTRYS, WATCHING_DATES} from './data.js';
+import {nanoid} from 'nanoid';
 const getFilmCard = () => ({
-  id: getRandomData(ID),
+  id: nanoid(),
   comments: [1, 2, 3, 4, 5],
   filmInfo: {
     title: getRandomData(TITLES_FILMS), //заголовок
