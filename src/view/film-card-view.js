@@ -1,5 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeDate} from '../utils/film-card.js';
+import FilmDetailsAndCommentsView from './film-detals-and-comments-view.js';
 
 const createMovieCardViewTemplate = (film) => {
   const {
@@ -70,15 +71,11 @@ export default class FilmCardView extends AbstractView {
     this.#film = film;
   }
 
+  #filmDetailsAndCommentsView = new FilmDetailsAndCommentsView();
+
   get template() {
     return createMovieCardViewTemplate(this.#film);
   }
-
-  /*
-  #onToggleActive = () => {
-    this.element.classList.toggle('film-card__controls-item--active');
-  };
-  */
 
   onSetPosterClick = (callback) => {
     this._callback.click = callback;
@@ -107,17 +104,21 @@ export default class FilmCardView extends AbstractView {
 
   #onMarkAsWatchedClick = (evt) => {
     evt.preventDefault();
+    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.markAsWatchedClick();
   };
 
   #onAddToWatchlistClick = (evt) => {
     evt.preventDefault();
+    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.addToWatchlistClick();
   };
 
   #onFavoriteClick = (evt) => {
     evt.preventDefault();
+    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.favoriteClick();
+
   };
 
 }

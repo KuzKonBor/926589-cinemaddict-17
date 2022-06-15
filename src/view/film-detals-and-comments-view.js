@@ -193,6 +193,40 @@ export default class FilmDetailsAndCommentsView extends AbstractView {
     evt.preventDefault();
     this._callback.click();
   };
+
+  onSetWatchedClick = (callback) => {
+    this._callback.WatchedClick = callback;
+    this.element.querySelector('.film-details__control-button--watched').addEventListener('click', this.#onWatchedClick);
+  };
+
+  onSetWatchlistClick = (callback) => {
+    this._callback.WatchlistClick = callback;
+    this.element.querySelector('.film-details__control-button--watchlist').addEventListener('click', this.#onWatchlistClick);
+  };
+
+  onSetFavoriteClick = (callback) => {
+    this._callback.isFavoriteClick = callback;
+    this.element.querySelector('.film-details__control-button--favorite').addEventListener('click', this.#onFavoriteClick);
+  };
+
+  #onWatchedClick = (evt) => {
+    evt.preventDefault();
+    evt.target.classList.toggle('film-details__control-button--active');
+    this._callback.WatchedClick();
+  };
+
+  #onWatchlistClick = (evt) => {
+    evt.preventDefault();
+    evt.target.classList.toggle('film-details__control-button--active');
+    this._callback.WatchlistClick();
+  };
+
+  #onFavoriteClick = (evt) => {
+    evt.preventDefault();
+    evt.target.classList.toggle('film-details__control-button--active');
+    this._callback.isFavoriteClick();
+
+  };
 }
 
 export {filterComments};
