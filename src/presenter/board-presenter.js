@@ -60,7 +60,6 @@ export default class BoardPresenter {
   #onFilmCardChange = (updatedFilmCard) => {
     this.#boardFilmCard = updateItem(this.#boardFilmCard, updatedFilmCard);
     this.#sourcedBoardFilms = updateItem(this.#sourcedBoardFilms, updatedFilmCard);
-    console.log(updatedFilmCard);
     this.#filmCardPresenterMap.get(updatedFilmCard.id).init(updatedFilmCard);
   };
 
