@@ -2,6 +2,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeDate} from '../utils/film-card.js';
 import FilmDetailsAndCommentsView from './film-detals-and-comments-view.js';
 
+
 const createMovieCardViewTemplate = (film) => {
   const {
     filmInfo,
