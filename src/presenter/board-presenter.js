@@ -60,7 +60,14 @@ export default class BoardPresenter {
   #onFilmCardChange = (updatedFilmCard) => {
     this.#boardFilmCard = updateItem(this.#boardFilmCard, updatedFilmCard);
     this.#sourcedBoardFilms = updateItem(this.#sourcedBoardFilms, updatedFilmCard);
+    console.log(updatedFilmCard);
     this.#filmCardPresenterMap.get(updatedFilmCard.id).init(updatedFilmCard);
+  };
+
+  #renderMovieCard = (movieCard) => {
+    const filmCardPresenter = new FilmCardPresenter(this.#filmListContainerView.element, this.#onFilmCardChange, this.#onModeChange);
+    filmCardPresenter.init(movieCard);
+    this.#filmCardPresenterMap.set(movieCard.id, filmCardPresenter);
   };
 
   #sortFilms = (sortType) => {
@@ -115,12 +122,6 @@ export default class BoardPresenter {
     }
   };
 
-  #renderMovieCard = (movieCard) => {
-    const filmCardPresenter = new FilmCardPresenter(this.#filmListContainerView.element, this.#onFilmCardChange, this.#onModeChange);
-    filmCardPresenter.init(movieCard);
-    this.#filmCardPresenterMap.set(movieCard.id, filmCardPresenter);
-  };
-
   #renderFilmCards = (from, to) => {
     this.#boardFilmCard
       .slice(from, to)
@@ -146,7 +147,7 @@ export default class BoardPresenter {
   #renderBoard = () => {
     render(this.#filmsView, this.#boardContainer);
 
-    if (this.#boardFilmCard.every((filmCard) => filmCard.isArchive)) {
+    if (this.#boardFilmCard.every((filmCard) => filmCard === null)) {
       this.#renderNoFilmCard();
       return;
     }

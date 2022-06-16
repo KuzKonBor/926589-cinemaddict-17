@@ -186,10 +186,10 @@ export default class FilmDetailsAndCommentsView extends AbstractView {
 
   onSetCrossClick = (callback) => {
     this._callback.click = callback;
-    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#onCrossClick);
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#onCrossClickPopup);
   };
 
-  #onCrossClick = (evt) => {
+  #onCrossClickPopup = (evt) => {
     evt.preventDefault();
     this._callback.click();
   };
@@ -211,21 +211,17 @@ export default class FilmDetailsAndCommentsView extends AbstractView {
 
   #onWatchedClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-details__control-button--active');
     this._callback.WatchedClick();
   };
 
   #onWatchlistClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-details__control-button--active');
     this._callback.WatchlistClick();
   };
 
   #onFavoriteClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-details__control-button--active');
     this._callback.isFavoriteClick();
-
   };
 }
 

@@ -3,11 +3,7 @@ import {render, replace, remove} from '../framework/render.js';
 import FilmCardView from '../view/film-card-view.js';
 import FilmDetailsAndCommentsView from '../view/film-detals-and-comments-view.js';
 import {siteBodyElement} from '../main.js';
-
-const Mode = {
-  DEFAULT: 'DEFAULT',
-  DETALS: 'DETALS',
-};
+import {Mode} from '../fish/const.js';
 export default class FilmCardPresenter {
   #filmCardListContainer = null;
   #movieCardComponent = null;
@@ -31,17 +27,17 @@ export default class FilmCardPresenter {
     const prevMovieCardPopupComponent = this.#movieCardPopupComponent;
 
     this.#movieCardComponent = new FilmCardView(movieCard);
-    this.#movieCardPopupComponent = new FilmDetailsAndCommentsView(movieCard);
+    this.#movieCardPopupComponent = new FilmDetailsAndCommentsView(this.#movieCard);
 
     this.#movieCardComponent.onSetPosterClick(this.#onPosterClick);
     this.#movieCardComponent.onSetAddToWatchlistClick(this.#onWatchlistClick);
     this.#movieCardComponent.onSetMarkAsWatchedClick(this.#onWatchedClick);
     this.#movieCardComponent.onSetFavoriteClickHandler(this.#onFavoriteClick);
+
     this.#movieCardPopupComponent.onSetCrossClick(this.#onCrossClick);
     this.#movieCardPopupComponent.onSetWatchlistClick(this.#onPopupWatchlistClick);
     this.#movieCardPopupComponent.onSetWatchedClick(this.#onPopupWatchedClick);
     this.#movieCardPopupComponent.onSetFavoriteClick(this.#onPopupFavoriteClick);
-
 
     if (prevMovieCardComponent === null || prevMovieCardPopupComponent === null) {
       render(this.#movieCardComponent, this.#filmCardListContainer);
@@ -53,7 +49,8 @@ export default class FilmCardPresenter {
     }
 
     if (this.#mode === Mode.DETALS) {
-      replace(this.#movieCardPopupComponent, prevMovieCardPopupComponent);
+      replace( this.#movieCardPopupComponent, prevMovieCardPopupComponent);
+      replace(this.#movieCardComponent, prevMovieCardComponent);
     }
 
     remove(prevMovieCardComponent);
@@ -92,42 +89,65 @@ export default class FilmCardPresenter {
     }
   };
 
-  #onCrossClick = () => {
-    this.#getRemovePopup();
-  };
-
   #onFavoriteClick = () => {
-    favorite = this.#movieCard.userDetails.favorite;
-    this.#changeData({...this.#movieCard, favorite: !this.#movieCard.userDetails.favorite});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, favorite: !this.#movieCard.userDetails.favorite}}));
   };
 
   #onWatchlistClick = () => {
-    watchlist = this.#movieCard.userDetails.watchlist;
-    this.#changeData({...this.#movieCard, watchlist: !this.#movieCard.userDetails.watchlist});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, watchlist: !this.#movieCard.userDetails.watchlist}}));
   };
 
   #onWatchedClick = () => {
-    alreadyWatched = this.#movieCard.userDetails.alreadyWatched;
-    this.#changeData({...this.#movieCard, alreadyWatched : !this.#movieCard.userDetails.alreadyWatched});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, alreadyWatched : !this.#movieCard.userDetails.alreadyWatched}}));
   };
 
   #onPopupFavoriteClick = () => {
-    favorite = this.#movieCard.userDetails.favorite;
-    this.#changeData({...this.#movieCard, favorite: !this.#movieCard.userDetails.favorite});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, favorite : !this.#movieCard.userDetails.favorite}}));
   };
 
   #onPopupWatchlistClick = () => {
-    watchlist = this.#movieCard.userDetails.watchlist;
-    this.#changeData({...this.#movieCard, watchlist: !this.#movieCard.userDetails.watchlist});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, watchlist: !this.#movieCard.userDetails.watchlist}}));
   };
 
   #onPopupWatchedClick = () => {
-    alreadyWatched = this.#movieCard.userDetails.alreadyWatched;
-    this.#changeData({...this.#movieCard, alreadyWatched : !this.#movieCard.userDetails.alreadyWatched});
+    this.#changeData(
+      Object.assign(
+        {},
+        this.#movieCard,
+        {
+          userDetails: {...this.#movieCard.userDetails, alreadyWatched : !this.#movieCard.userDetails.alreadyWatched}}));
   };
 
-  #onPosterClick = (movieCard) => {
-    this.#changeData(movieCard);
+  #onPosterClick = () => {
     this.#getRenderPopup();
+  };
+
+  #onCrossClick = () => {
+    this.#getRemovePopup();
   };
 }

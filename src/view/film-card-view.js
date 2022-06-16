@@ -99,24 +99,21 @@ export default class FilmCardView extends AbstractView {
 
   #onPosterClick = (evt) => {
     evt.preventDefault();
-    this._callback.click(this.#film);
+    this._callback.click();
   };
 
   #onMarkAsWatchedClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.markAsWatchedClick();
   };
 
   #onAddToWatchlistClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.addToWatchlistClick();
   };
 
   #onFavoriteClick = (evt) => {
     evt.preventDefault();
-    evt.target.classList.toggle('film-card__controls-item--active');
     this._callback.favoriteClick();
 
   };
