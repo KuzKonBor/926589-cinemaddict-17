@@ -186,12 +186,42 @@ export default class FilmDetailsAndCommentsView extends AbstractView {
 
   onSetCrossClick = (callback) => {
     this._callback.click = callback;
-    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#onCrossClick);
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#onCrossClickPopup);
   };
 
-  #onCrossClick = (evt) => {
+  #onCrossClickPopup = (evt) => {
     evt.preventDefault();
     this._callback.click();
+  };
+
+  onSetWatchedClick = (callback) => {
+    this._callback.WatchedClick = callback;
+    this.element.querySelector('.film-details__control-button--watched').addEventListener('click', this.#onWatchedClick);
+  };
+
+  onSetWatchlistClick = (callback) => {
+    this._callback.WatchlistClick = callback;
+    this.element.querySelector('.film-details__control-button--watchlist').addEventListener('click', this.#onWatchlistClick);
+  };
+
+  onSetFavoriteClick = (callback) => {
+    this._callback.isFavoriteClick = callback;
+    this.element.querySelector('.film-details__control-button--favorite').addEventListener('click', this.#onFavoriteClick);
+  };
+
+  #onWatchedClick = (evt) => {
+    evt.preventDefault();
+    this._callback.WatchedClick();
+  };
+
+  #onWatchlistClick = (evt) => {
+    evt.preventDefault();
+    this._callback.WatchlistClick();
+  };
+
+  #onFavoriteClick = (evt) => {
+    evt.preventDefault();
+    this._callback.isFavoriteClick();
   };
 }
 

@@ -1,5 +1,5 @@
 import UserProfileView from './view/user-profile-view.js';
-import FiltersSortView from './view/filters-sort-view.js';
+//import FiltersSortView from './view/filters-sort-view.js';
 import FiltersNavigationView from './view/filters-navigation-view.js';
 import {render} from './framework/render.js';
 import BoardPresenter from './presenter/board-presenter.js';
@@ -16,8 +16,8 @@ const filters = generateFilter(filmCardModel.filmCard);
 
 render(new UserProfileView(), siteHeaderElement);
 render(new FiltersNavigationView(filters), siteMainElement);
-render(new FiltersSortView(), siteMainElement);
+//render(new FiltersSortView(), siteMainElement);
 
 boardPresenter.init();
 
-export {siteBodyElement};
+export {siteBodyElement, siteMainElement};
