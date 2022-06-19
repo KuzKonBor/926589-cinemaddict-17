@@ -8,9 +8,9 @@ const FilterType = {
 };
 
 const SortType = {
-  SORT_BY_DEFAULT: 'Sort by default',
-  SORT_BY_DATE: 'Sort by date',
-  SORT_BY_RATING: 'Sort by rating',
+  DEFAULT: 'default',
+  DATE: 'date',
+  RATING: 'totalRating',
 };
 
 const Mode = {
