@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import {getRandomInteger} from '../utils/common.js';
+
+dayjs.extend(duration);
 
 const getRandomData = (data) => {
   const randomIndex = getRandomInteger(0, data.length - 1);
@@ -7,7 +10,15 @@ const getRandomData = (data) => {
 };
 
 const humanizeReleaseDate = (date) => dayjs(date).format('D MMMM YYYY');
+
 const humanizeDate = (date) => dayjs(date).format('YYYY');
+
+const convertMinutesToHours = (min) => dayjs.duration(min, 'minutes').format('H[h] m[m]');
+
+//const hours = min / 60 ^ 0;
+//const minutes = min % 60;
+
+//return `${hours}h ${minutes}m`;
 
 const getSortRating = (ratingA, ratingB) =>  ratingA.filmInfo.totalRating - ratingB.filmInfo.totalRating;
 
@@ -33,4 +44,4 @@ const sortFilmsDown = (taskA, taskB) => {
   return weight ?? dayjs(taskB.filmInfo.release.date).diff(dayjs(taskA.filmInfo.release.date));
 };
 
-export {humanizeReleaseDate, getRandomData, humanizeDate, sortFilmsDown, getSortRating};
+export {humanizeReleaseDate, getRandomData, humanizeDate, convertMinutesToHours, sortFilmsDown, getSortRating};

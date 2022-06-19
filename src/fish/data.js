@@ -54,11 +54,11 @@ const GENRES = [
 ];
 
 const RUNTIMES = [
-  '1h 45m',
-  '2h 05m',
-  '1h 19m',
-  '2h 43m',
-  '1h 49m'
+  105,
+  125,
+  79,
+  163,
+  109
 ];
 
 const RELEASE_COUNTRYS = [

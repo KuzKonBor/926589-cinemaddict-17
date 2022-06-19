@@ -2,7 +2,9 @@ import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import {humanizeReleaseDate} from '../utils/film-card.js';
 import {EMOTIONS} from '../fish/const.js';
 import {actualArrayComments} from '../presenter/board-presenter.js';
-
+import dayjs from 'dayjs';
+import {nanoid} from 'nanoid';
+import {convertMinutesToHours} from '../utils/film-card.js';
 const creatingGenreItemTitle = (genre) => genre.length > 1 ? 'Genres' : 'Genre';
 
 const createGenresItem = (genres) => genres
@@ -67,6 +69,8 @@ const createFilmDetailsViewTemplate = (film) => {
     ? humanizeReleaseDate(release.date)
     : '';
 
+  const hours = runtime !== null ? convertMinutesToHours(runtime) : '';
+
   return ( `<section class="film-details">
 <form class="film-details__inner" action="" method="get">
 <div class="film-details__top-container">
@@ -108,7 +112,7 @@ const createFilmDetailsViewTemplate = (film) => {
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Runtime</td>
-        <td class="film-details__cell">${runtime}</td>
+        <td class="film-details__cell">${hours}</td>
       </tr>
       <tr class="film-details__row">
         <td class="film-details__term">Country</td>
@@ -199,8 +203,10 @@ export default class FilmDetailsAndCommentsView extends AbstractStatefulView {
     this.element.scrollTo(0, scroll);
     this.element.querySelectorAll('.film-details__emoji-item').forEach((emojiChecked) => {
       if (evt.target.value === emojiChecked.value ) {
+        emojiChecked.classList.remove('visually-hidden');
         emojiChecked.setAttribute('checked', 'true');
       } else {
+        emojiChecked.classList.add('visually-hidden');
         emojiChecked.setAttribute('checked', 'folse');
       }
     });
@@ -260,6 +266,14 @@ export default class FilmDetailsAndCommentsView extends AbstractStatefulView {
     evt.preventDefault();
     this._callback.isFavoriteClick();
   };
+
+  static newComment = (state) => ({
+    id: nanoid(),
+    author: 'MyName',
+    comment: state.comment,
+    date: dayjs().format('YYYY/MM/DD HH:mm'),
+    emotion: state.emotion,
+  });
 }
 
 export {filterComments};

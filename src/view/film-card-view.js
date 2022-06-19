@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeDate} from '../utils/film-card.js';
+import {humanizeDate, convertMinutesToHours} from '../utils/film-card.js';
 
 const createMovieCardViewTemplate = (film) => {
   const {
@@ -25,7 +25,7 @@ const createMovieCardViewTemplate = (film) => {
   } = userDetails;
 
   const MAX_DESCRIPTION_LENGTH = 140;
-
+  const hours = runtime !== null ? convertMinutesToHours(runtime) : '';
   const years = release.date !== null ? humanizeDate(release.date) : '';
 
   const createDescription = (text) => {
@@ -47,7 +47,7 @@ const createMovieCardViewTemplate = (film) => {
   <p class="film-card__rating">${ageRating}</p>
   <p class="film-card__info">
     <span class="film-card__year">${years}</span>
-    <span class="film-card__duration">${runtime}</span>
+    <span class="film-card__duration">${hours}</span>
     <span class="film-card__genre">${genre}</span>
   </p>
   <img src="${poster}" alt="" class="film-card__poster">
@@ -112,7 +112,5 @@ export default class FilmCardView extends AbstractView {
   #onFavoriteClick = (evt) => {
     evt.preventDefault();
     this._callback.favoriteClick();
-
   };
-
 }
