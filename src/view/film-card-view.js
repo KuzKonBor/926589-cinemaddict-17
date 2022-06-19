@@ -1,6 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeDate} from '../utils/film-card.js';
-import FilmDetailsAndCommentsView from './film-detals-and-comments-view.js';
 
 const createMovieCardViewTemplate = (film) => {
   const {
@@ -70,8 +69,6 @@ export default class FilmCardView extends AbstractView {
     super();
     this.#film = film;
   }
-
-  #filmDetailsAndCommentsView = new FilmDetailsAndCommentsView();
 
   get template() {
     return createMovieCardViewTemplate(this.#film);
