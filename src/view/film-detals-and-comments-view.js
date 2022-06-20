@@ -1,4 +1,4 @@
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 import {humanizeReleaseDate} from '../utils/film-card.js';
 import {EMOTIONS} from '../fish/const.js';
 import {actualArrayComments} from '../presenter/board-presenter.js';
@@ -26,10 +26,6 @@ const filterComments = (arrayComments, filmCard) => {
   return Array.from(actualCommentsFilm);
 };
 
-const createEmotionNewComment = (emotion) =>
-  emotion ? `<img src="./images/emoji/${emotion}.png" width="30" height="30" alt="emoji">` : '';
-
-
 const createEmojisTemplate = (existingEmotion) => existingEmotion
   .map((emotion) =>
     `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${emotion}" value="${emotion}">
@@ -38,7 +34,7 @@ const createEmojisTemplate = (existingEmotion) => existingEmotion
         </label>`)
   .join('');
 
-const createFilmDetailsViewTemplate = (film, createComment = {}) => {
+const createFilmDetailsViewTemplate = (film) => {
 
   const {
     filmInfo,
@@ -67,13 +63,11 @@ const createFilmDetailsViewTemplate = (film, createComment = {}) => {
     favorite,
   } = userDetails;
 
-  const {comment, emotion} = createComment;
-
   const years = release.date !== null
     ? humanizeReleaseDate(release.date)
     : '';
 
-  return (`<section class="film-details">
+  return ( `<section class="film-details">
 <form class="film-details__inner" action="" method="get">
 <div class="film-details__top-container">
 <div class="film-details__close">
@@ -148,12 +142,10 @@ ${createFilmDetalsControlsButton('favorite', 'Add to favorites', favorite)}
     </ul>
 
       <div class="film-details__new-comment">
-      <div class="film-details__add-emoji-label">
-      ${createEmotionNewComment(emotion)}
-      </div>
+      <div class="film-details__add-emoji-label">${film.emotion ? `<img src="./images/emoji/${film.emotion}.png" width="55" height="55" alt="emoji">` : ''}</div>
 
         <label class="film-details__comment-label">
-        <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${comment || ''}</textarea>
+        <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment">${film.comment ? `${film.comment}` : ''}</textarea>
         </label>
 
           <div class="film-details__emoji-list">
@@ -163,26 +155,71 @@ ${createFilmDetalsControlsButton('favorite', 'Add to favorites', favorite)}
 </section>
 </div>
 </form>
-</section>`);
+</section>`
+  );
 };
 
-export default class FilmDetailsAndCommentsView extends AbstractView {
-  #film = null;
+export default class FilmDetailsAndCommentsView extends AbstractStatefulView {
 
-  constructor (film){
+  constructor (film) {
     super();
-    this.#film = film;
+    this._state = FilmDetailsAndCommentsView.parseMovieToData(film);
 
-    this.emotion = null;
-    this.comment = null;
+    this.setInnerHandlers();
   }
 
   get template() {
-    return createFilmDetailsViewTemplate(this.#film, {
-      emotion: this.emotion,
-      comment: this.comment,
-    });
+    return createFilmDetailsViewTemplate(this._state);
   }
+
+  static parseMovieToData = (film) => ({...film,
+    emotion: null,
+    comment: null,
+  });
+
+  static parseDataToMovie = (state) => {
+    const film = {...state};
+
+    delete film.emotion;
+    delete film.comment;
+
+    return film;
+  };
+
+  setInnerHandlers = () => {
+    this.element.querySelector('.film-details__emoji-list').addEventListener('input', this.#onEmojiCheck);
+    this.element.querySelector('.film-details__comment-input').addEventListener('input', this.#onCommentInput);
+  };
+
+  #onEmojiCheck = (evt) => {
+    const scroll = this.element.scrollTop;
+    this.updateElement({
+      emotion: evt.target.value,
+    });
+    this.element.scrollTo(0, scroll);
+    this.element.querySelectorAll('.film-details__emoji-item').forEach((emojiChecked) => {
+      if (evt.target.value === emojiChecked.value ) {
+        emojiChecked.setAttribute('checked', 'true');
+      } else {
+        emojiChecked.setAttribute('checked', 'folse');
+      }
+    });
+  };
+
+  #onCommentInput = (evt) => {
+    evt.preventDefault();
+    this._setState({
+      comment: evt.target.value,
+    });
+  };
+
+  _restoreHandlers = () => {
+    this.setInnerHandlers();
+    this.onSetFavoriteClick(this._callback.isFavoriteClick);
+    this.onSetWatchedClick(this._callback.watchedClick);
+    this.onSetWatchlistClick(this._callback.WatchlistClick);
+    this.onSetCrossClick(this._callback.click);
+  };
 
   onSetCrossClick = (callback) => {
     this._callback.click = callback;

@@ -14,8 +14,6 @@ import FilmCardPresenter from './film-card-presenter.js';
 import {updateItem} from '../utils/common.js';
 import {SortType} from '../fish/const.js';
 
-//sortTaskUp,
-
 const filmCardModelComments = new FilmCardModel();
 const boardFilmComment = [...filmCardModelComments.comments];
 const actualArrayComments = () => createFilmDetailsCommentTemplate(boardFilmComment);
