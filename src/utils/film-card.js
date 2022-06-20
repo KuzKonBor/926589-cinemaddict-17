@@ -15,11 +15,6 @@ const humanizeDate = (date) => dayjs(date).format('YYYY');
 
 const convertMinutesToHours = (min) => dayjs.duration(min, 'minutes').format('H[h] m[m]');
 
-//const hours = min / 60 ^ 0;
-//const minutes = min % 60;
-
-//return `${hours}h ${minutes}m`;
-
 const getSortRating = (ratingA, ratingB) =>  ratingA.filmInfo.totalRating - ratingB.filmInfo.totalRating;
 
 const getWeightForNullDate = (dateA, dateB) => {

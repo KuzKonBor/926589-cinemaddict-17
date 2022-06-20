@@ -20,7 +20,7 @@ const getFilmCard = () => ({
       'Самый крутой актёр это кто? Никогда не догадаетесь... Тадам, это - Я'
     ],
     release: { //выпущен
-      date: getRandomData(WATCHING_DATES),
+      date: `${getRandomInteger(1946, 2022)}`,
       releaseCountry: getRandomData(RELEASE_COUNTRYS), //Страна выпуска
     },
     runtime: getRandomData(RUNTIMES), //продолжительность фильма
@@ -36,5 +36,4 @@ const getFilmCard = () => ({
     favorite: getRandomBooleanValue(), //любимый фильм
   }
 });
-
 export {getFilmCard};

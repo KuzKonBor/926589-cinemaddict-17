@@ -12,7 +12,6 @@ import {siteMainElement} from '../main.js';
 import {render, RenderPosition, remove} from '../framework/render.js';
 import FilmCardPresenter from './film-card-presenter.js';
 import {updateItem} from '../utils/common.js';
-import {sortFilmsDown, getSortRating} from '../utils/film-card.js';
 import {SortType} from '../fish/const.js';
 
 const filmCardModelComments = new FilmCardModel();
@@ -35,7 +34,7 @@ export default class BoardPresenter {
   #boardFilmCard = [];
   #renderFilmCard = FILM_CARD_COUNT_PER_STEP;
   #filmCardPresenterMap = new Map();
-  #currentSortType = SortType.SORT_BY_DEFAULT;
+  #currentSortType = SortType.DEFAULT;
   #sourcedBoardFilms = [];
 
   constructor(boardContainer, filmCardModel) {
@@ -69,16 +68,15 @@ export default class BoardPresenter {
 
   #sortFilms = (sortType) => {
     switch (sortType) {
-      case sortType.SORT_BY_DATE:
-        this.#boardFilmCard.sort(sortFilmsDown);
+      case SortType.DATE:
+        this.#boardFilmCard.sort((filmA, filmB) => {const result = filmB.filmInfo.release.date - filmA.filmInfo.release.date; return result;});
         break;
-      case sortType.SORT_BY_RATING:
-        this.#boardFilmCard.sort(getSortRating);
+      case SortType.RATING:
+        this.#boardFilmCard.sort((filmA, filmB) => {const result = filmB.filmInfo.totalRating - filmA.filmInfo.totalRating; return result;});
         break;
       default:
         this.#boardFilmCard = [...this.#sourcedBoardFilms];
     }
-
     this.#currentSortType = sortType;
   };
 
@@ -89,10 +87,12 @@ export default class BoardPresenter {
     this.#sortFilms(sortType);
     this.#clearFilmCardList();
     this.#renderFilmCardList();
+    this.#renderLoadMoreButton();
   };
 
 
   #renderSort = () => {
+    this.#filtersSortView = new FiltersSortView(this.#currentSortType);
     render(this.#filtersSortView, siteMainElement, RenderPosition.BEFOREEND);
     this.#filtersSortView.onSetSortTypeChange(this.#onSortTypeChange);
   };

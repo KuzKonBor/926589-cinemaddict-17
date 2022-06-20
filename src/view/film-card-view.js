@@ -1,6 +1,7 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import {humanizeDate, convertMinutesToHours} from '../utils/film-card.js';
 
+
 const createMovieCardViewTemplate = (film) => {
   const {
     filmInfo,
